@@ -41,6 +41,14 @@ jobs:
       # Hint: Use docker/build-push-action@v5
       # Set context to current directory
       # Push to: docker.io/${{ secrets.REGISTRY_USER }}/example-application:${{ env.TAG_NAME }}
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: docker.io/${{ secrets.REGISTRY_USER }}/example-application:${{ env.TAG_NAME }}
+          build-args: |
+            APP_VERSION=${{ env.TAG_NAME }}
 
   trigger-deployment-update:
     runs-on: ubuntu-latest
